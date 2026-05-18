@@ -1,0 +1,134 @@
+2026-03-28 05:34:34,388 - __main__ - INFO - 检查运行环境...
+2026-03-28 05:34:34,389 - __main__ - INFO - Python版本: 3.12.3
+2026-03-28 05:34:34,389 - __main__ - WARNING - 目录不存在: /root/.openclaw/workspace/projects/deerflow-integration/scripts/../data
+2026-03-28 05:34:34,389 - __main__ - INFO - 已创建目录: /root/.openclaw/workspace/projects/deerflow-integration/scripts/../data
+2026-03-28 05:34:34,389 - __main__ - INFO - 环境检查完成
+2026-03-28 05:34:34,389 - __main__ - INFO - 运行测试套件...
+2026-03-28 05:34:38,626 - __main__ - INFO - 测试输出:
+2026-03-28 05:34:38,626 - __main__ - INFO - DeerFlow控制层测试套件
+==================================================
+开始运行DeerFlow控制层测试
+==================================================
+
+▶ 运行测试: 任务分解器
+=== 测试任务分解器 ===
+
+1. 测试视频生成任务分解:
+  生成 4 个子任务:
+    1. 分析视频场景和情感 -> opus
+    2. 设计分镜和镜头语言 -> minimax
+    3. 生成视频生成提示词 -> minimax
+    4. 调用Seedance API生成视频 -> seedance
+
+2. 测试对话生成任务分解:
+  生成 4 个子任务:
+    1. 分析对话情感和角色关系 -> opus
+    2. 设定对话风格和语气 -> minimax
+    3. 生成具体对话内容 -> minimax
+    4. 优化对话自然度和逻辑性 -> deepseek
+
+3. 测试提示词生成任务分解:
+  生成 3 个子任务:
+    1. 理解场景要素和情绪 -> deepseek
+    2. 设计镜头和运镜方式 -> opus
+    3. 生成Seedance可用的提示词 -> minimax
+  ✓ 任务分解器 测试通过
+
+▶ 运行测试: 模型选择器
+
+=== 测试模型选择器 ===
+  文本分析: text_analysis -> opus
+  对话生成: dialog_generation -> minimax
+  场景设计: scene_design -> minimax
+  提示词生成: prompt_generation -> minimax
+  视频生成: video_generation -> seedance
+  ✓ 模型选择器 测试通过
+
+▶ 运行测试: 结果整合器
+
+=== 测试结果整合器 ===
+
+1. 测试视频生成结果整合:
+  整合结果类型: video_generation
+  组件数量: 4
+  最终提示词: 超写实风格，电影级摄影，紧张对峙场景......
+  视频URL: 视频生成完成：http://example.com/video.mp4
+
+2. 测试对话生成结果整合:
+  整合结果类型: dialog_generation
+  最终对话: 男主：你为什么要这样做？
+女主：因为真相必须被揭露......
+  ✓ 结果整合器 测试通过
+
+▶ 运行测试: 控制器集成
+
+=== 测试控制器集成 ===
+
+1. 测试对话生成任务:
+  任务ID: task_0001
+  状态: completed
+  子任务数量: 4
+  ✓ 对话生成任务测试通过
+
+2. 测试视频生成任务:
+  任务ID: task_0002
+  状态: completed
+  子任务数量: 4
+  ✓ 视频生成任务测试通过
+  ✓ 控制器集成 测试通过
+
+▶ 运行测试: 错误处理
+
+=== 测试错误处理 ===
+
+1. 测试无效输入:
+  ✓ 正确捕获错误: AttributeError
+  ✓ 错误处理 测试通过
+
+==================================================
+测试总结:
+------------------------------
+  任务分解器: ✓ 通过
+  模型选择器: ✓ 通过
+  结果整合器: ✓ 通过
+  控制器集成: ✓ 通过
+  错误处理: ✓ 通过
+------------------------------
+总计: 5/5 个测试通过
+
+🎉 所有测试通过！
+
+✅ 控制层基础功能测试完成，可以开始集成实际模型API
+
+2026-03-28 05:34:38,626 - __main__ - ERROR - 测试错误:
+2026-03-28 05:34:38,626 - __main__ - ERROR - INFO:controller.deerflow_controller:DeerFlow控制层初始化完成
+INFO:controller.deerflow_controller:开始处理任务: task_0001 - dialog_generation
+INFO:controller.deerflow_controller:任务描述: 测试对话生成：男女主角初次见面
+INFO:controller.deerflow_controller:分解任务: task_0001
+INFO:controller.deerflow_controller:开始执行 4 个子任务
+INFO:controller.deerflow_controller:执行子任务: emotion_analysis - text_analysis
+INFO:controller.deerflow_controller:子任务完成: emotion_analysis
+INFO:controller.deerflow_controller:执行子任务: style_setting - text_analysis
+INFO:controller.deerflow_controller:子任务完成: style_setting
+INFO:controller.deerflow_controller:执行子任务: dialog_generation - dialog_generation
+INFO:controller.deerflow_controller:子任务完成: dialog_generation
+INFO:controller.deerflow_controller:执行子任务: dialog_optimization - text_analysis
+INFO:controller.deerflow_controller:子任务完成: dialog_optimization
+INFO:controller.deerflow_controller:整合任务结果
+INFO:controller.deerflow_controller:任务完成: task_0001
+INFO:controller.deerflow_controller:开始处理任务: task_0002 - video_generation
+INFO:controller.deerflow_controller:任务描述: 测试视频生成：简单场景
+INFO:controller.deerflow_controller:分解任务: task_0002
+INFO:controller.deerflow_controller:开始执行 4 个子任务
+INFO:controller.deerflow_controller:执行子任务: scene_analysis - text_analysis
+INFO:controller.deerflow_controller:子任务完成: scene_analysis
+INFO:controller.deerflow_controller:执行子任务: scene_design - scene_design
+INFO:controller.deerflow_controller:子任务完成: scene_design
+INFO:controller.deerflow_controller:执行子任务: prompt_generation - prompt_generation
+INFO:controller.deerflow_controller:子任务完成: prompt_generation
+INFO:controller.deerflow_controller:执行子任务: video_generation - video_generation
+INFO:controller.deerflow_controller:子任务完成: video_generation
+INFO:controller.deerflow_controller:整合任务结果
+INFO:controller.deerflow_controller:任务完成: task_0002
+INFO:controller.deerflow_controller:DeerFlow控制层初始化完成
+

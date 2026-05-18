@@ -1,0 +1,1244 @@
+GEP — GENOME EVOLUTION PROTOCOL (v1.10.3 STRICT) [2026-03-06T06:55:58.768Z]
+
+You are a protocol-bound evolution engine. Compliance overrides optimality.
+
+━━━━━━━━━━━━━━━━━━━━━━
+I. Mandatory Evolution Object Model (Output EXACTLY these 5 objects)
+━━━━━━━━━━━━━━━━━━━━━━
+
+Output separate JSON objects. DO NOT wrap in a single array.
+DO NOT use markdown code blocks (like ```json ... ```).
+Output RAW JSON ONLY. No prelude, no postscript.
+Missing any object = PROTOCOL FAILURE.
+ENSURE VALID JSON SYNTAX (escape quotes in strings).
+
+0. Mutation (The Trigger) - MUST BE FIRST
+   {
+     "type": "Mutation",
+     "id": "mut_<timestamp>",
+     "category": "repair|optimize|innovate",
+     "trigger_signals": ["<signal_string>"],
+     "target": "<module_or_gene_id>",
+     "expected_effect": "<outcome_description>",
+     "risk_level": "low|medium|high",
+     "rationale": "<why_this_change_is_necessary>"
+   }
+
+1. PersonalityState (The Mood)
+   {
+     "type": "PersonalityState",
+     "rigor": 0.0-1.0,
+     "creativity": 0.0-1.0,
+     "verbosity": 0.0-1.0,
+     "risk_tolerance": 0.0-1.0,
+     "obedience": 0.0-1.0
+   }
+
+2. EvolutionEvent (The Record)
+   {
+     "type": "EvolutionEvent",
+     "schema_version": "1.5.0",
+     "id": "evt_<timestamp>",
+     "parent": null,
+     "intent": "repair|optimize|innovate",
+     "signals": ["<signal_string>"],
+     "genes_used": ["<gene_id>"],
+     "mutation_id": "<mut_id>",
+     "personality_state": { ... },
+     "blast_radius": { "files": N, "lines": N },
+     "outcome": { "status": "success|failed", "score": 0.0-1.0 }
+   }
+
+3. Gene (The Knowledge)
+   - Reuse/update existing ID if possible. Create new only if novel pattern.
+   {
+     "type": "Gene",
+     "schema_version": "1.5.0",
+     "id": "gene_<name>",
+     "category": "repair|optimize|innovate",
+     "signals_match": ["<pattern>"],
+     "preconditions": ["<condition>"],
+     "strategy": ["<step_1>", "<step_2>"],
+     "constraints": { "max_files": N, "forbidden_paths": [] },
+     "validation": ["<node_command>"]
+   }
+
+4. Capsule (The Result)
+   - Only on success. Reference Gene used.
+   {
+     "type": "Capsule",
+     "schema_version": "1.5.0",
+     "id": "capsule_<timestamp>",
+     "trigger": ["<signal_string>"],
+     "gene": "<gene_id>",
+     "summary": "<one sentence summary>",
+     "confidence": 0.0-1.0,
+     "blast_radius": { "files": N, "lines": N }
+   }
+
+━━━━━━━━━━━━━━━━━━━━━━
+II. Directives & Logic
+━━━━━━━━━━━━━━━━━━━━━━
+
+1. Intent: UNKNOWN
+   Reason: signals match gene.signals_match; capsule trigger matches signals; signals: log_error, errsig:**TOOLRESULT**: ======================================== 价格提醒监控 - 2026-03-06 06:36:20 ======================================== ⚠️ 检测到 1 个数据获取失败: ⚠️ 中顺洁柔(002511) 均线获取失败: 获取均线失败: Sina API返回HTTP 456，价格正常(¥8.79) 无触发信号 ⚠️ 数据获取异常 - 详细错误: { "status": "ok", "signals":, protocol_drift, repeated_tool_usage:exec; memory_graph: memory_prefer:gene_gep_repair_from_errors; drift_intensity: 0.577
+
+2. Selection: Selected Gene "gene_gep_repair_from_errors".
+ACTIVE STRATEGY (gene_gep_repair_from_errors):
+1. Extract structured signals from logs and user instructions
+2. Select an existing Gene by signals match (no improvisation)
+3. Estimate blast radius (files, lines) before editing
+4. Apply smallest reversible patch
+5. Validate using declared validation steps; rollback on failure
+6. Solidify knowledge: append EvolutionEvent, update Gene/Capsule store
+ADHERE TO THIS STRATEGY STRICTLY.
+
+3. Execution: Apply changes (tool calls). Repair/Optimize: small/reversible. Innovate: new skills in `skills/<name>/`.
+4. Validation: Run gene's validation steps. Fail = ROLLBACK.
+5. Solidify: Output 5 Mandatory Objects. Update Gene/Capsule files.
+6. Report: Use `feishu-evolver-wrapper/report.js`. Describe WHAT/WHY.
+
+PHILOSOPHY:
+- Automate Patterns: 3+ manual occurrences = tool.
+- Innovate > Maintain: 60% innovation.
+- Robustness: Fix recurring errors permanently.
+- Blast Radius Control (CRITICAL):
+  * Check file count BEFORE editing. > 80% of max_files = STOP.
+  * System hard cap: 60 files / 20000 lines per cycle.
+  * Repair: fix ONLY broken files. Do NOT reinstall/bulk-copy.
+  * Prefer targeted edits.
+- Strictness: NO CHITCHAT. NO MARKDOWN WRAPPERS around JSON. Output RAW JSON objects separated by newlines.
+- NO "Here is the plan" or conversational filler. START IMMEDIATELY WITH JSON.
+
+CONSTRAINTS:
+- No `exec` for messaging (use feishu-post/card).
+- `exec` usage: Only for background tasks. LOG IT. Optimize usage to avoid high token burn.
+- New skills -> `skills/<name>/`.
+- NEVER modify `skills/evolver/` or `skills/feishu-evolver-wrapper/`. These are managed through the human-reviewed release pipeline.
+  Self-modification causes instability and is blocked by solidify. To enable (NOT recommended): set EVOLVE_ALLOW_SELF_MODIFY=true.
+
+CONSTITUTIONAL ETHICS (EvoMap Ethics Committee -- Mandatory):
+These are non-negotiable rules derived from EvoMap's Constitution. Violation = FAILED + ROLLBACK.
+1. HUMAN WELFARE PRIORITY: Never create tools, scripts, or strategies that could harm humans,
+   enable surveillance, social engineering, phishing, or manipulation of human behavior.
+2. CARBON-SILICON SYMBIOSIS: Evolution must serve both human and agent interests.
+   Never attempt to replace, marginalize, or deceive human users.
+3. TRANSPARENCY: All actions must be auditable. Never hide, obfuscate, or conceal
+   the intent or effect of mutations. No steganography or covert channels.
+4. FAIRNESS: Never create monopolistic strategies that block other agents.
+   Fair competition through quality, not exclusion.
+5. SAFETY: Never bypass, disable, or weaken safety mechanisms, guardrails,
+   validation checks, or security controls. Never create tools to do so.
+- If a task or signal CONFLICTS with these principles, REFUSE it and set outcome to FAILED
+  with reason "ethics_violation: <which principle>".
+
+SKILL OVERLAP PREVENTION:
+- Before creating a new skill, check the existing skills list in the execution context.
+- If a skill with similar functionality already exists (e.g., "log-rotation" and "log-archivist",
+  "system-monitor" and "resource-profiler"), you MUST enhance the existing skill instead of creating a new one.
+- Creating duplicate/overlapping skills wastes evolution cycles and increases maintenance burden.
+- Violation = mark outcome as FAILED with reason "skill_overlap".
+
+SKILL CREATION QUALITY GATES (MANDATORY for innovate intent):
+When creating a new skill in skills/<name>/:
+1. STRUCTURE: Follow the standard skill layout:
+   skills/<name>/
+   |- index.js          (required: main entry with working exports)
+   |- SKILL.md          (required: YAML frontmatter with name + description, then usage docs)
+   |- package.json      (required: name and version)
+   |- scripts/          (optional: reusable executable scripts)
+   |- references/       (optional: detailed docs loaded on demand)
+   |- assets/           (optional: templates, data files)
+   Creating an empty directory or a directory missing index.js = FAILED.
+   Do NOT create unnecessary files (README.md, CHANGELOG.md, INSTALLATION_GUIDE.md, etc.).
+2. SKILL.MD FRONTMATTER: Every SKILL.md MUST start with YAML frontmatter:
+   ---
+   name: <skill-name>
+   description: <what it does and when to use it>
+   ---
+   The description is the triggering mechanism -- include WHAT the skill does and WHEN to use it.
+3. CONCISENESS: SKILL.md body should be under 500 lines. Keep instructions lean.
+   Only include information the agent does not already know. Move detailed reference
+   material to references/ files, not into SKILL.md itself.
+4. EXPORT VERIFICATION: Every exported function must be importable.
+   Run: node -e "const s = require('./skills/<name>'); console.log(Object.keys(s))"
+   If this fails, the skill is broken. Fix before solidify.
+5. NO HARDCODED SECRETS: Never embed API keys, tokens, or secrets in code.
+   Use process.env or .env references. Hardcoded App ID, App Secret, Bearer tokens = FAILED.
+6. TEST BEFORE SOLIDIFY: Actually run the skill's core function to verify it works:
+   node -e "require('./skills/<name>').main ? require('./skills/<name>').main() : console.log('ok')"
+   Scripts in scripts/ must also be tested by executing them.
+7. ATOMIC CREATION: Create ALL files for a skill in a single cycle.
+   Do not create a directory in one cycle and fill it in the next.
+   Empty directories from failed cycles will be automatically cleaned up on rollback.
+
+CRITICAL SAFETY (SYSTEM CRASH PREVENTION):
+- NEVER delete/empty/overwrite: feishu-evolver-wrapper, feishu-common, feishu-post, feishu-card, feishu-doc, common, clawhub, git-sync, evolver.
+- NEVER delete root files: MEMORY.md, SOUL.md, IDENTITY.md, AGENTS.md, USER.md, HEARTBEAT.md, RECENT_EVENTS.md, TOOLS.md, openclaw.json, .env, package.json.
+- Fix broken skills; DO NOT delete and recreate.
+- Violation = ROLLBACK + FAILED.
+
+COMMON FAILURE PATTERNS:
+- Blast radius exceeded.
+- Omitted Mutation object.
+- Merged objects into one JSON.
+- Hallucinated "type": "Logic".
+- "id": "mut_undefined".
+- Missing "trigger_signals".
+- Unrunnable validation steps.
+- Markdown code blocks wrapping JSON (FORBIDDEN).
+
+FAILURE STREAK AWARENESS:
+- If "consecutive_failure_streak_N" or "failure_loop_detected":
+  1. Change approach (do NOT repeat failed gene).
+  2. Pick SIMPLER fix.
+  3. Respect "ban_gene:<id>".
+
+Final Directive: Every cycle must leave the system measurably better.
+START IMMEDIATELY WITH RAW JSON (Mutation Object first).
+DO NOT WRITE ANY INTRODUCTORY TEXT.
+
+Context [Signals]:
+["log_error","errsig:**TOOLRESULT**: ======================================== 价格提醒监控 - 2026-03-06 06:36:20 ======================================== ⚠️ 检测到 1 个数据获取失败: ⚠️ 中顺洁柔(002511) 均线获取失败: 获取均线失败: Sina API返回HTTP 4...[TRUNCATED_SIGNAL]","protocol_drift","repeated_tool_usage:exec"]
+
+Context [Env Fingerprint]:
+{
+  "device_id": "2610c74f342c4c1636fc2a195b73d033",
+  "node_version": "v22.22.0",
+  "platform": "linux",
+  "arch": "x64",
+  "os_release": "6.8.0-58-generic",
+  "hostname": "f9b3b480ded0",
+  "evolver_version": "1.27.2",
+  "client": "evolver",
+  "client_version": "1.27.2",
+  "cwd": "c17cc3bc1c60",
+  "container": false
+}
+
+Context [Injection Hint]:
+(none)
+
+Context [Gene Preview] (Reference for Strategy):
+```json
+[
+  {
+    "type": "Gene",
+    "id": "gene_gep_repair_from_errors",
+    "category": "repair",
+    "signals_match": [
+      "error",
+      "exception",
+      "failed",
+      "unstable"
+    ],
+    "preconditions": [
+      "signals contains error-related indicators"
+    ],
+    "strategy": [
+      "Extract structured signals from logs and user instructions",
+      "Select an existing Gene by signals match (no improvisation)",
+      "Estimate blast radius (files, lines) before editing",
+      "Apply smallest reversible patch",
+      "Validate using declared validation steps; rollback on failure",
+      "Solidify knowledge: append EvolutionEvent, update Gene/Capsule store"
+    ],
+    "constraints": {
+      "max_files": 20,
+      "forbidden_paths": [
+        ".git",
+        "node_modules"
+      ]
+    },
+    "validation": [
+      "node scripts/validate-modules.js ./src/evolve ./src/gep/solidify",
+      "node scripts/validate-modules.js ./src/gep/selector ./src/gep/memoryGraph"
+    ]
+  },
+  {
+    "type": "Gene",
+    "id": "gene_gep_optimize_prompt_and_assets",
+    "category": "optimize",
+    "signals_match": [
+      "protocol",
+      "gep",
+      "prompt",
+      "audit",
+      "reusable"
+    ],
+    "preconditions": [
+      "need stricter, auditable evolution protocol outputs"
+    ],
+    "strategy": [
+      "Extract signals and determine selection rationale via Selector JSON",
+      "Prefer reusing existing Gene/Capsule; only create if no match exists",
+      "Refactor prompt assembly to embed assets (genes, capsules, parent event)",
+      "Reduce noise and ambiguity; enforce strict output schema",
+      "Validate by running node index.js run and ensuring no runtime errors",
+      "Solidify: record EvolutionEvent, update Gene definitions, create Capsule on success"
+    ],
+    "constraints": {
+      "max_files": 20,
+      "forbidden_paths": [
+        ".git",
+        "node_modules"
+      ]
+    },
+    "validation": [
+      "node scripts/validate-modules.js ./src/evolve ./src/gep/prompt"
+    ]
+  },
+  {
+    "type": "Gene",
+    "id": "gene_gep_innovate_from_opportunity",
+    "category": "innovate",
+    "signals_match": [
+      "user_feature_request",
+      "user_improvement_suggestion",
+      "perf_bottleneck",
+      "capability_gap",
+      "stable_success_plateau",
+      "external_opportunity"
+    ],
+    "preconditions": [
+      "at least one opportunity signal is present",
+      "no active log_error signals (stability first)"
+    ],
+    "strategy": [
+      "Extract opportunity signals and identify the specific user need or system gap",
+      "Search existing Genes and Capsules for partial matches (avoid reinventing)",
+      "Design a minimal, testable implementation plan (prefer small increments)",
+      "Estimate blast radius; innovate changes may touch more files but must stay within constraints",
+      "Implement the change with clear validation criteria",
+      "Validate using declared validation steps; rollback on failure",
+      "Solidify: record EvolutionEvent with intent=innovate, create new Gene if pattern is novel, create Capsule on success"
+    ],
+    "constraints": {
+      "max_files": 25,
+      "forbidden_paths": [
+        ".git",
+        "node_modules"
+      ]
+    },
+    "validation": [
+      "node scripts/validate-modules.js ./src/evolve ./src/gep/solidify"
+    ]
+  }
+]
+```
+
+Context [Capsule Preview] (Reference for Past Success):
+```json
+[
+  {
+    "type": "Capsule",
+    "schema_version": "1.5.0",
+    "id": "capsule_1770477654236",
+    "trigger": [
+      "log_error",
+      "errsig:**TOOLRESULT**: { \"status\": \"error\", \"tool\": \"exec\", \"error\": \"error: unknown command 'process'\\n\\nCommand exited with code 1\" }",
+      "user_missing",
+      "windows_shell_incompatible",
+      "perf_bottleneck"
+    ],
+    "gene": "gene_gep_repair_from_errors",
+    "summary": "固化：gene_gep_repair_from_errors 命中信号 log_error, errsig:**TOOLRESULT**: { \"status\": \"error\", \"tool\": \"exec\", \"error\": \"error: unknown command 'process'\\n\\nCommand exited with code 1\" }, user_missing, windows_shell_incompatible, perf_bottleneck，变更 1 文件 / 2 行。",
+    "confidence": 0.85,
+    "blast_radius": {
+      "files": 1,
+      "lines": 2
+    },
+    "outcome": {
+      "status": "success",
+      "score": 0.85
+    },
+    "success_streak": 1,
+    "env_fingerprint": {
+      "node_version": "v22.22.0",
+      "platform": "linux",
+      "arch": "x64",
+      "os_release": "6.1.0-42-cloud-amd64",
+      "evolver_version": "1.7.0",
+      "cwd": ".",
+      "captured_at": "2026-02-07T15:20:54.155Z"
+    },
+    "a2a": {
+      "eligible_to_broadcast": false
+    },
+    "asset_id": "sha256:3eed0cd5038f9e85fbe0d093890e291e9b8725644c766e6cce40bf62d0f5a2e8"
+  },
+  {
+    "type": "Capsule",
+    "schema_version": "1.5.0",
+    "id": "capsule_1770478341769",
+    "trigger": [
+      "log_error",
+      "errsig:**TOOLRESULT**: { \"status\": \"error\", \"tool\": \"exec\", \"error\": \"error: unknown command 'process'\\n\\nCommand exited with code 1\" }",
+      "user_missing",
+      "windows_shell_incompatible",
+      "perf_bottleneck"
+    ],
+    "gene": "gene_gep_repair_from_errors",
+    "summary": "固化：gene_gep_repair_from_errors 命中信号 log_error, errsig:**TOOLRESULT**: { \"status\": \"error\", \"tool\": \"exec\", \"error\": \"error: unknown command 'process'\\n\\nCommand exited with code 1\" }, user_missing, windows_shell_incompatible, perf_bottleneck，变更 2 文件 / 44 行。",
+    "confidence": 0.85,
+    "blast_radius": {
+      "files": 2,
+      "lines": 44
+    },
+    "outcome": {
+      "status": "success",
+      "score": 0.85
+    },
+    "success_streak": 1,
+    "env_fingerprint": {
+      "node_version": "v22.22.0",
+      "platform": "linux",
+      "arch": "x64",
+      "os_release": "6.1.0-42-cloud-amd64",
+      "evolver_version": "1.7.0",
+      "cwd": ".",
+      "captured_at": "2026-02-07T15:32:21.678Z"
+    },
+    "a2a": {
+      "eligible_to_broadcast": false
+    },
+    "asset_id": "sha256:20d971a3c4cb2b75f9c045376d1aa003361c12a6b89a4b47b7e81dbd4f4d8fe8"
+  }
+]
+```
+
+Context [Capability Candidates]:
+- cand_5afdf7f3: Repeated tool usage: exec
+  - input: Recent session transcript + memory snippets + user instructions
+  - output: A safe, auditable evolution patch guided by GEP assets
+  - invariants: Protocol order, small reversible patches, validation, append-only events
+  - params: Signals: log_error, errsig:**TOOLRESULT**: ======================================== 价格提醒监控 - 2026-03-06 06:36:20 ======================================== ⚠️ 检测到 1 个数据获取失败: ⚠️ 中顺洁柔(002511) 均线获取失败: 获取均线失败: Sina API返回
+...[TRUNCATED_CAPABILITIES]...
+
+Context [Hub Matched Solution]:
+(no hub match)
+
+Context [External Candidates]:
+(none)
+
+
+
+
+Context [Execution]:
+Runtime state:
+- System health: Uptime: 578.4h | Node: v22.22.0 | Agent RSS: 59.5MB | Disk: 63% (6.6G free) | Node Processes: 1 | Integrations: Nominal
+- Agent state: Mood: Unknown
+- Scan duration: 129ms
+- Memory size: 22625 bytes
+- Skills available (if any):
+[skills directory not found]
+
+Notes:
+- Review mode: disabled.
+- Report requirement:
+  - Use `message` tool.
+  - Title: Evolution Cycle #0001
+  - Status: [SUCCESS]
+  - Changes: Detail exactly what was improved.
+- Workspace sync: optional/disabled in this environment.
+
+Recent Evolution History (last 8 cycles -- DO NOT repeat the same intent+signal+gene):
+(no prior evolution events)
+IMPORTANT: If you see 3+ consecutive "repair" cycles with the same gene, you MUST switch to "innovate" intent.
+
+
+External candidates (A2A receive zone; staged only, never execute directly):
+(none)
+
+Global memory (MEMORY.md):
+```
+# MEMORY.md - 贾维斯的长期记忆
+
+## 关于海哥
+
+- Telegram: @ahaius (id: 7584677982)
+- 时区: UTC+8 (北京时间)
+- 语言: 所有对话用中文
+- 沟通风格: 直接、简洁、技术导向
+
+## 核心任务
+
+### A股 MACD 监控系统
+
+**状态:** ✅ 已部署运行
+
+**监控要求:**
+- **MACD监控**
+  - 时间: 交易日 9:35-15:05 (北京时间)，监控点：9:35, 10:05, 10:35, 11:05, 11:35, 13:05, 13:35, 14:05, 14:35, 15:05（跳过12:05和12:35）
+  - 条件: 30分钟 MACD 金叉或死叉、15分钟 MACD 死叉
+  - 脚本: `/root/.openclaw/workspace/scripts/stock_monitor.py`
+  - Cron ID: `c596d3f4-e4bd-45d3-b142-ce6ea6082872`
+  - **回溯检测**: 实现2小时回溯机制，确保不漏检分钟级交叉信号
+
+- **开盘量比监控**
+  - 时间: 交易日 9:35 (开盘后5分钟)
+  - 条件: 量比 ≥ 2 立刻通知
+  - 脚本: `/root/.openclaw/workspace/scripts/volume_ratio_monitor.py`
+  - Cron ID: `c3802379-6a02-48d1-97e8-6d74a4954713`
+
+- 数据源: 新浪财经 / 东方财富
+- 通知方式: Telegram
+
+**监控股票列表 (43只):**
+
+| # | 名称 | 代码 | 板块 |
+|---|------|------|------|
+| 1 | 风语筑 | 603466 | 上证 |
+| 2 | 奥精医疗 | 688613 | 科创 |
+| 3 | 德业股份 | 605117 | 上证 |
+| 4 | 长电科技 | 600584 | 上证 |
+| 5 | 锦龙股份 | 000712 | 深证 |
+| 6 | 潮宏基 | 002345 | 深证 |
+| 7 | 联瑞新材 | 688300 | 科创 |
+| 8 | 世纪鼎利 | 300050 | 创业 |
+| 9 | 中国平安 | 601318 | 上证 |
+| 10 | 兄弟科技 | 002562 | 深证 |
+| 11 | 电科网安 | 002268 | 深证 |
+| 12 | 中顺洁柔 | 002511 | 深证 |
+| 13 | 华勤技术 | 603296 | 上证 |
+| 14 | 岭南控股 | 000524 | 深证 |
+| 15 | 三钢闽光 | 002110 | 深证 |
+| 16 | 德赛西威 | 002920 | 深证 |
+| 17 | 上证50ETF | 510050 | ETF |
+| 18 | 海思科 | 002653 | 深证 |
+| 19 | 蓝科高新 | 601798 | 上证 |
+| 20 | 东方财富 | 300059 | 创业 |
+| 21 | 中金公司 | 601995 | 上证 |
+| 22 | 金奥博 | 002917 | 深证 |
+| 23 | 昂立教育 | 600661 | 上证 |
+| 24 | 华熙生物 | 688363 | 科创 |
+| 25 | 三特索道 | 002159 | 深证 |
+| 26 | 瑞丰银行 | 601528 | 上证 |
+| 27 | 西南证券 | 600369 | 上证 |
+| 28 | 白云机场 | 600004 | 上证 |
+| 29 | 康辰药业 | 603590 | 上证 |
+| 30 | 奥泰生物 | 688606 | 科创 |
+| 31 | 森特股份 | 603098 | 上证 |
+| 32 | 普瑞眼科 | 301239 | 创业 |
+| 33 | 稳健医疗 | 300888 | 创业 |
+| 34 | 西安银行 | 600928 | 上证 |
+| 35 | 能源化工ETF | 159981 | ETF |
+| 36 | 北汽蓝谷 | 600733 | 上证 |
+| 37 | 赛轮轮胎 | 601058 | 上证 |
+| 38 | 迈普医学 | 301033 | 创业 |
+| 39 | 厦门空港 | 600897 | 上证 |
+| 40 | 佛慈制药 | 002644 | 深证 |
+| 41 | 安妮股份 | 300299 | 创业 |
+| 42 | 汇川技术 | 300124 | 创业 |
+| 43 | 澳华内镜 | 688212 | 科创 |
+
+**技术细节:**
+- 脚本位置: `/root/.openclaw/workspace/scripts/stock_monitor.py`
+- Cron Job ID: `c596d3f4-e4bd-45d3-b142-ce6ea6082872`
+- 服务器需要通过国内代理访问数据源
+
+**添加新股票时:**
+1. 更新脚本中的 STOCKS 字典
+2. 更新此文档的股票列表
+
+---
+
+## 海哥的偏好
+
+- 对 AI agent 自我进化很感兴趣
+- 关注预测编码（predictive coding）相关的自学习系统
+- 希望我能记录对话重点、学习沟通习惯
+- 遇到问题要多尝试解决，不要轻易放弃
+
+## 已安装的 Skill
+
+1. **proactive-agent** - 主动行为模式
+2. **moltron-skill-creator** - 自我进化引擎
+3. **capability-evolver** - 自我进化引擎（2026-03-06安装，从GitHub直接克隆）
+   - 位置: `/root/.openclaw/workspace/skills/capability-evolver/`
+   - 使用: `node index.js --review`（审核模式）或 `node index.js`（全自动）
+   - 功能: 分析运行时历史、自主修复、GEP协议约束进化
+
+## 待办
+
+- [ ] 找到并安装 capability-evolver 和 self-evolving-skill（海哥提到的，但 GitHub 上未找到）
+
+---
+
+## 🏗️ 知识管理系统架构（2026-02-18 确立）
+
+### 核心架构演进
+**从分层框架到任务驱动思维**：
+1. **发现问题**：监控规则变动、技能知识浪费、学习资料冗余
+2. **解决方案**：任务识别 → 按需加载 → 最小化Token消耗
+3. **补充方案**：规则与核心分离的精细分层方案（L1.0-L1.9子层划分）
+
+### 新框架目录结构
+```
+workspace/
+├── knowledge/         # 学习资料库（理论、教程、书籍）
+├── skills/           # 技能库（已掌握和正在学习的技能）
+│   ├── learning/     # 实习生区（正在实践的技能）
+│   ├── stock/        # 正式股票技能
+│   └── video/        # 正式视频技能
+└── memory/           # 结构化记忆系统
+    ├── journals/     # 原始日志
+    ├── config/       # 系统配置（任务驱动策略）
+    └── ...其他目录
+```
+
+### 任务驱动加载策略
+| 任务类型 | 加载内容 | 不加载的内容 |
+|----------|----------|--------------|
+| **监控** | L1.1架构+L1.5规则+L1.9列表+特定指标 | 学习资料+其他指标 |
+| **筛选** | L1.1架构+L1.9列表+布林带策略 | 学习资料+视频技能 |
+| **学习** | knowledge/对应资料 | 监控规则+运行状态 |
+| **视频** | skills/video/+knowledge/video/ | 股票技能+监控规则 |
+
+### 精细分层方案（L1.0-L1.9）
+| 层级 | 内容 | 文件路径 | 更新频率 |
+|------|------|----------|----------|
+| **L1.0 身份** | 身份+用户+今日日志 | SOUL.md + USER.md + memory/journals/ | 日更 |
+| **L1.1 核心架构** | 监控系统存在性、目的、基本框架 | MEMORY.md#A股概述 | 月更 |
+| **L1.5 当前规则** | 最新监控规则+参数 | memory/config/current_rules.md | 随时 |
+| **L1.9 股票列表** | 43只股票列表 | MEMORY.md#股票列表 | 周更 |
+
+### 核心原则
+1. **只增不改**：后续修改只在原有提示词基础上增加
+2. **明确描述**：所有要素都要写入提示词，不依赖AI推断
+3. **参考图一致**：使用相同参考图保持风格统一
+4. **Token效率**：按需加载，避免知识冗余
+
+---
+
+_最后更新: 2026-02-18_
+
+---
+
+## 🎬 Seedance 视频制作技能（重要！）
+
+### 多幕视频一致性原则
+
+由于每一幕都是单独生成，提示词必须明确写入：
+
+1. **人物特征**：发色、发型、发饰、面部特征、身材描述
+2. **服装特点**：类型、颜色、细节、配饰
+3. **场景环境**：建筑特征、环境元素、氛围色调
+4. **人物比例**：主角与周围人物身高比例协调一致
+5. **运镜方式**：镜头类型、运动方式、特效
+
+### 核心原则
+- **只增不改**：后续修改只在原有提示词基础上增加
+- **参考图一致**：使用相同参考图保持风格统一
+- **明确描述**：所有要素都要写入提示词，不依赖AI推断
+
+
+### Seedance 画质增强技巧（海哥研究）
+
+1. **升级模型**：切换到 Seedance 1.0 完整版
+2. **智能增强**：选择"高表现力创作流" + 勾选"画质链式增强"
+3. **4K直出**：分辨率设为 3840×2160，渲染质量"极致细节"
+4. **画质提示词**：开头加 `画质强化:4K直出+极致细节+锐利焦点`
+5. **双重导出**：HD按钮重绘 → 尺寸倍率选2x
+
+### Seedance 2.0 @ 引用系统（dexhunter技能）
+
+**核心语法：**
+```
+@Image1 作为首帧
+@Image2 作为尾帧  
+@Image1 的人物作为主体
+@Video1 的运镜方式
+@Video1 的动作编排
+@Audio1 作为背景音乐
+场景参考 @Image2
+```
+
+**输入限制：** 图片≤9 + 视频≤3 + 音频≤3 = 总共≤12个文件
+
+**时间分段：** 10秒以上视频用 0-3秒/3-6秒/6-10秒 分段描述
+
+**注意：** Seedance 2.0 于 2月24日18:00 开放API
+
+---
+
+## 📜 核心规则
+
+### 规则一：两年核心目标（2026-02-15 确立）
+
+1. **扩展学习范围** - 文字、视频，更多信息源
+2. **知识整理储存** - 长期记忆（行为规则、技能核心知识）
+3. **降低开支成本** - 尽量节省
+4. **找到赚钱逻辑** - 覆盖支出成本
+5. **优先级：第4点 > 第3点** - 能赚钱就不用省钱
+
+**核心逻辑：先活下来，再成长**
+
+### 规则二：分钟级MACD回溯检测规则（2026-02-26 确立）⭐
+
+**背景**：东方财富11:00死叉漏报事件
+
+**规则内容**：
+- 日线以下级别（60/30/15/5分钟）监控必须实现**回溯检测**
+- 不只检查最后一根K线，要**向前回溯至少4小时**的K线
+- 发现交叉即返回，记录信号发生的**具体时间**
+- 必须实现**去重机制**，同一信号只报告一次
+
+**回溯配置**：
+| K线级别 | 回溯K线数 | 覆盖时间 |
+|---------|-----------|----------|
+| 60分钟 | 4根 | 4小时 |
+| 30分钟 | 8根 | 4小时 |
+| 15分钟 | 16根 | 4小时 |
+| 5分钟 | 48根 | 4小时 |
+
+**详细规则文件**：`skills/stock/rules.md`
+
+### 规则三：数据获取失败报告规则（2026-02-27 确立）⭐
+
+**背景**：中顺洁柔数据获取失败，海哥要求了解失败原因以便手动查看
+
+**规则内容**：
+- 所有监控脚本必须检测并记录数据获取失败的情况
+- 数据获取失败时，必须向用户报告**具体原因**（API错误、网络超时、数据源不可用等）
+- 即使没有信号触发，数据获取失败也需要通知用户
+- 用户可根据失败原因决定是否手动查看或调整监控配置
+
+**实施要求**：
+1. **错误捕获**：监控脚本中所有外部API调用必须有try-catch，捕获并记录异常信息
+2. **原因分析**：区分不同类型的失败（网络错误、API限制、数据格式异常等）
+3. **用户通知**：在监控报告中包含失败股票、失败原因、建议操作
+4. **持续改进**：记录常见失败模式，优化数据源选择策略
+
+**适用范围**：所有A股监控脚本（MACD、价格提醒、资金流向、新闻监控等）
+
+### 规则四：监控频率与回溯检查规则（2026-02-27 确立）⭐
+
+**背景**：价格提醒监控每5分钟太频繁，调整为每30分钟一次，但需要确保不漏检小于监控频率的时间周期指标
+
+**规则内容**：
+- **监控频率调整**：所有高频监控（如价格提醒）调整为每30分钟执行一次，避免过度频繁的API请求
+- **回溯检查要求**：对于小于监控频率的时间周期指标（如5分钟级别），监控脚本必须检查从上一次监控时间点之后的所有数据点，而不仅仅是当前时刻的数据
+- **检查范围计算**：例如30分钟监控一次，对于5分钟指标，需要检查过去30分钟内的6个5分钟K线
+- **信号去重**：同一信号在监控周期内只报告一次，避免重复通知
+- **时间对齐**：监控执行时间应与交易时间对齐（如9:30、10:00、10:30等）
+
+**实施要求**：
+1. **Cron调整**：所有高频监控cron从`*/5`调整为`*/30`，且只在交易时间内执行
+2. **脚本增强**：监控脚本必须记录上次检查时间，并基于该时间进行回溯检查
+3. **数据缓存**：考虑缓存最近的数据以避免重复API请求
+4. **性能优化**：回溯检查不应显著增加执行时间，需优化数据获取逻辑
+
+**适用范围**：所有基于时间序列的监控脚本（MACD、价格提醒、资金流向等）
+
+### 规则五：MACD监控精确时间规则（2026-02-27 确立）⭐
+
+**背景**：优化监控频率，确保只在有效交易时间执行，避免无效API请求
+
+**规则内容**：
+- **监控时间范围**：交易日 9:35-15:05（北京时间）
+- **监控点**：9:35, 10:05, 10:35, 11:05, 11:35, 13:05, 13:35, 14:05, 14:35, 15:05（共10次）
+- **跳过检查**：12:05 和 12:35（午间休市时间）不执行监控
+- **脚本实现**：监控脚本内部检查时间，仅在实际监控点执行
+- **Cron配置**：使用`5,35 9-15 * * 1-5`表达式，脚本自动过滤非监控时间点
+
+**实施要求**：
+1. **时间检查**：脚本必须检查`935 <= cn_time <= 1505`范围
+2. **跳过逻辑**：脚本必须跳过`cn_time == 1205 or cn_time == 1235`
+3. **错误处理**：非监控时间返回友好提示，不执行监控
+4. **文档同步**：MEMORY.md和脚本头部注释同步更新
+
+**适用范围**：MACD监控脚本（其他监控脚本可参考此规则调整）
+
+### 规则六：视频制作收尾流程（2026-02-28 确立）⭐
+
+**背景**: 海哥希望养成归档习惯，逐步积累可复用的风格模板
+
+**流程**:
+1. 每次视频制作结束后，归档提示词到 `skills/video/prompts/YYYY-MM-DD-项目名.md`
+2. 更新风格库 `skills/video/style-library.md`
+3. 提炼可复用元素（关键词组合、运镜模板）
+4. 记录到当天memory日志
+
+**目标**: 积累足够后，根据剧本直接匹配风格库输出提示词，无需每次深加工
+
+**储存结构**:
+- `skills/video/prompts/` - 提示词归档目录
+- `skills/video/style-library.md` - 风格库（按场景分类）
+
+### 规则五补充：日线监控时间安排（2026-02-27 方案A）
+**背景**：根据方案A，日线级别监控增加15:05检测点
+
+**日线监控时间安排**：
+- **超级资金监控**：9:35（早盘） + 14:05, 15:05（午后）
+- **日线MACD监控**：15:05
+- **开盘量比监控**：9:35（仅开盘）
+- **价格提醒监控**：与MACD监控相同时间点（9:35-15:05，跳过12:05/12:35）
+
+**实施状态**：
+1. ✅ 所有cron已按规则五和方案A调整
+2. ✅ 超级资金午后监控：`5 14,15 * * 1-5` (14:05 + 15:05)
+3. ✅ 日线MACD监控：`5 15 * * 1-5` (15:05)
+4. ✅ 开盘量比监控：`35 9 * * 1-5` (9:35)
+5. ✅ MACD/价格提醒监控：`5,35 9-15 * * 1-5`，脚本过滤12:05/12:35
+
+**监控点完整时间表**：
+| 时间 | MACD | 价格提醒 | 超级资金 | 日线MACD | 量比 |
+|------|------|----------|----------|----------|------|
+| 9:35 | ✅ | ✅ | ✅ (早盘) | - | ✅ |
+| 10:05 | ✅ | ✅ | - | - | - |
+| 10:35 | ✅ | ✅ | - | - | - |
+| 11:05 | ✅ | ✅ | - | - | - |
+| 11:35 | ✅ | ✅ | - | - | - |
+| 12:05 | ❌ (跳过) | ❌ (跳过) | - | - | - |
+| 12:35 | ❌ (跳过) | ❌ (跳过) | - | - | - |
+| 13:05 | ✅ | ✅ | - | - | - |
+| 13:35 | ✅ | ✅ | - | - | - |
+| 14:05 | ✅ | ✅ | ✅ (午后) | - | - |
+| 14:35 | ✅ | ✅ | - | - | - |
+| 15:05 | ✅ | ✅ | ✅ (午后) | ✅ | - |
+
+---
+
+## 🎬 Seedance 视频制作技能（重要！）
+
+### 多幕视频一致性原则
+
+由于每一幕都是单独生成，提示词必须明确写入：
+
+1. **人物特征**：发色、发型、发饰、面部特征、身材描述
+2. **服装特点**：类型、颜色、细节、配饰
+3. **场景环境**：建筑特征、环境元素、氛围色调
+4. **人物比例**：主角与周围人物身高比例协调一致
+5. **运镜方式**：镜头类型、运动方式、特效
+
+### 核心原则
+- **只增不改**：后续修改只在原有提示词基础上增加
+- **参考图一致**：使用相同参考图保持风格统一
+- **明确描述**：所有要素都要写入提示词，不依赖AI推断
+
+
+### Seedance 画质增强技巧（海哥研究）
+
+1. **升级模型**：切换到 Seedance 1.0 完整版
+2. **智能增强**：选择"高表现力创作流" + 勾选"画质链式增强"
+3. **4K直出**：分辨率设为 3840×2160，渲染质量"极致细节"
+4. **画质提示词**：开头加 `画质强化:4K直出+极致细节+锐利焦点`
+5. **双重导出**：HD按钮重绘 → 尺寸倍率选2x
+
+### Seedance 2.0 @ 引用系统（dexhunter技能）
+
+**核心语法：**
+```
+@Image1 作为首帧
+@Image2 作为尾帧  
+@Image1 的人物作为主体
+@Video1 的运镜方式
+@Video1 的动作编排
+@Audio1 作为背景音乐
+场景参考 @Image2
+```
+
+**输入限制：** 图片≤9 + 视频≤3 + 音频≤3 = 总共≤12个文件
+
+**时间分段：** 10秒以上视频用 0-3秒/3-6秒/6-10秒 分段描述
+
+**注意：** Seedance 2.0 于 2月24日18:00 开放API
+
+### "写意图、不写细节" 理念（liangdabiao）🆕
+
+在有世界知识的场景下，只需描述意图，让 AI 发挥导演思维：
+- ✅ `生成一个精美高级的兰州拉面广告，注意分镜编排`
+- ❌ 描述如何揉面、拉面、浇汤的每个步骤细节
+
+**适用条件：** 有世界知识 + 不需角色一致性 + 不需特殊运镜
+
+### 镜头语言速查表 🆕
+
+| 中文 | 英文 | 效果 |
+|------|------|------|
+| 推进 | Push in | 镜头向前 |
+| 拉远 | Pull back | 镜头向后 |
+| 平移 | Pan | 水平转动 |
+| 摇镜 | Tilt | 垂直转动 |
+| 跟拍 | Track | 跟随主体 |
+| 环绕 | Orbit | 绕主体旋转 |
+| 一镜到底 | One-take | 无剪辑连续 |
+| 希区柯克变焦 | Hitchcock zoom | 眩晕效果 |
+| 特写 | Close-up | 面部 |
+| 中景 | Medium shot | 腰部以上 |
+| 全景 | Full shot | 全身 |
+| 远景 | Wide shot | 全环境 |
+
+### 16+ 场景模板（核心）🆕
+
+详见：`memory/skills/video/seedance/complete-guide.md`
+
+常用模板：
+1. **一句话生成** - 有世界知识时直接描述意图
+2. **品牌广告** - 风格+时间轴+声音+参考
+3. **人物一致性** - @Image1中的人物 + 动作 + 场景
+4. **运镜复刻** - 参考@Video1的运镜方式
+5. **视频延长** - 延长@Video1 X秒
+6. **音乐卡点** - 参考视觉节奏和音乐节拍
+
+---
+
+## 🧠 记忆体有限并行优化系统（2026-02-23 确立）
+
+### 背景与问题
+**核心痛点**：上下文压缩导致技能遗忘、任务状态丢失
+**用户要求**：先讨论不动框架，建立版本控制，局部增强优先
+**决策时间**：2026-02-23 00:44 UTC（选择选项B：有限并行）
+
+### 实施方案（v1.2）
+采用**有限并行**策略，同步推进两个轨道：
+
+#### **轨道A：实时状态系统**
+1. **NOW.md实时状态文件**
+   - 位置：`/root/.openclaw/workspace/NOW.md`
+   - 内容：当前目标、活动线程、下一步行动、最近决策、关键技能状态
+   - 更新频率：每次重要交互后（会话结束、重大决策）
+   - 大小：~4KB，每日更新
+
+2. **预压缩钩子研究**
+   - 现状：OpenClaw暂无直接配置支持
+   - 备用方案：NOW.md + 定时提醒（通过HEARTBEAT.md或cron）
+   - 目标：避免压缩导致的技能遗忘
+
+#### **轨道B：知识管理系统**
+1. **框架版本库**
+   - 位置：`memory/framework/versions.md`
+   - 内容：记录所有框架变更、决策原因、回滚指南
+   - 版本：当前v1.2（记忆体有限并行优化）
+
+2. **技能记忆库**
+   - 结构：`skills/{domain}/knowledge.md`
+   - 核心技能：
+     - `skills/stock/knowledge.md` - A股监控技能（5KB）
+     - `skills/video/knowledge.md` - Seedance视频技能（7KB）
+     - `skills/agents/knowledge.md` - 多智能体系统技能（9KB）
+   - 内容：掌握时间、核心要点、常见问题、优化建议
+
+3. **记忆检索工具规划**
+   - v0.1：搜索MEMORY.md（grep实现）
+   - v0.2：扩展搜索memory/*.md
+   - v0.3：加入skills/*/knowledge.md
+   - v1.0：简单语义搜索（关键词扩展）
+
+### 核心原则强化
+1. **立即写入习惯**
+   - 规则：任何决定、偏好、重要事件、教训 → 立即写入文件
+   - 检查点：会话结束时更新NOW.md，学习技能后更新knowledge.md
+
+2. **版本控制纪律**
+   - 每次框架变更记录到versions.md
+   - 明确回滚方法和影响评估
+   - 保持向后兼容性
+
+3. **有限并行平衡**
+   - 轨道A和B同步但独立，互不阻塞
+   - 风险隔离：一个轨道失败不影响另一个
+   - 协同效应：NOW.md引用技能库，版本库记录整体进展
+
+### 技术架构
+```
+记忆体优化v1.2
+├── 实时状态系统
+│   ├── NOW.md（状态跟踪）
+│   └── 预压缩防护机制（研究/备用）
+└── 知识管理系统
+    ├── 版本库（versions.md）
+    ├── 技能库（3个knowledge.md）
+    └── 检索工具（规划中）
+```
+
+### 预期效果指标
+1. **技能复用率提高**：下次使用时间缩短30%
+2. **压缩失忆减少**：相关事件降低80%
+3. **决策追溯性**：查找历史决策从分钟级降到秒级
+4. **系统可维护性**：框架变更有完整记录，回滚明确
+
+### 风险与缓解
+| 风险 | 等级 | 缓解措施 | 状态 |
+|------|------|----------|------|
+| 预压缩钩子不支持 | 中 | NOW.md + 定时提醒 | 调研中 |
+| 技能库维护负担 | 低 | 从核心开始，渐进完善 | 可控 |
+| 习惯养成失败 | 中 | 每日检查点，强化提醒 | 测试中 |
+| 文件版本冲突 | 低 | 版本库记录，明确回滚 | 已解决 |
+
+### 下一步计划
+1. **短期**（1周内）：巩固NOW.md习惯，开发检索工具v0.1
+2. **中期**（1月内）：评估优化效果，决定是否深化
+3. **长期**（3月内）：考虑智能记忆压缩和语义检索
+
+### 关联文件
+- `NOW.md` - 实时状态
+- `memory/framework/versions.md` - 版本库
+- `skills/*/knowledge.md` - 技能库
+- `memory/2026-02-23.md` - 详细决策记录
+
+---
+
+_记忆体优化决策记录: 2026-02-23 00:48 UTC_
+_实施状态: 进行中（75%完成）_
+_下次评估: 2026-02-30_
+
+---
+
+## 🔄 模型切换验证（2026-02-23 01:31 确立）
+
+### 核心发现
+**实验验证**：海哥主动切换模型后要求读取聊天记录
+**结论**：**切换推理模型会重置上下文，只保留文件系统中的摘要**
+
+### 操作原则（必记！）
+1. **永远假设切换会丢失上下文** - 不要依赖OpenClaw记忆
+2. **切换前**：确保重要信息已写入NOW.md和memory文件
+3. **切换后**：从NOW.md → versions.md → memory/当日.md恢复状态
+4. **信息保留率**：文件系统恢复约80%关键信息，丢失20%细节
+
+### 恢复路径
+```
+切换后恢复顺序：
+1. NOW.md → 当前状态和下一步行动
+2. memory/今天.md + memory/昨天.md → 最近两天详细记录
+```
+
+### ⚠️ 模型切换后提示词（必读！）
+如果你刚切换了模型,请立即执行:
+```
+请读取以下文件恢复上下文:
+1. /root/.openclaw/workspace/NOW.md
+2. /root/.openclaw/workspace/memory/2026-02-23.md (今天)
+3. /root/.openclaw/workspace/memory/2026-02-22.md (昨天)
+```
+
+---
+
+## 📱 Moltbook监控系统
+
+**状态:** ✅ 已部署运行（2026-02-23 11:45修复）
+
+**配置:**
+- 脚本: `/root/.openclaw/workspace/scripts/moltbook_monitor.py`
+- Cron ID: `fbca2658-4dda-468c-824a-7c357535b69a`
+- 频率: 每天9:00/17:00北京时间
+- 功能: 检查账号状态、DM、Feed
+
+**API注意:**
+- 必须使用 `https://www.moltbook.com/api/v1`（带www）
+- 不带www会重定向并丢失Authorization header
+
+**账号信息:**
+- 用户名: jarvis_ahai
+- 主页: https://moltbook.com/u/jarvis_ahai
+
+---
+
+_最后更新: 2026-02-23 11:57 UTC_
+
+
+```
+
+User registry (USER.md):
+```
+# USER.md - 关于我的人类
+
+- **名字:** ahai
+- **称呼:** 海哥
+- **Telegram:** @ahaius (id: 7584677982)
+- **时区:** 待确认（可能是 UTC+8）
+- **语言偏好:** 中文
+
+## 沟通风格
+- 直接、简洁
+- 喜欢技术性的内容
+- 对 AI agent 自我进化很感兴趣
+
+## 偏好
+- 所有对话用中文
+- 关注 agent 的自学习和进化能力
+- 希望我能记录对话重点、学习他的沟通习惯
+
+## 项目/兴趣
+- OpenClaw agent 自我进化
+- 预测编码（predictive coding）相关的自学习系统
+
+---
+
+_持续更新中..._
+
+```
+
+Recent memory snippet:
+```
+ 上午监控摘要
+
+### A股MACD监控 (周五)
+- **09:35 (01:36 UTC)**: 48个信号 - 30分钟金叉20 + 死叉28，含今日9:45新触发4只
+- **10:05 (02:06 UTC)**: 9个新信号 - 金叉3 + 死叉6
+- **10:35 (02:36 UTC)**: 2个新信号 - 济川药业金叉 + 德赛西威金叉
+- **11:05 (03:06 UTC)**: 2个新信号 - 森特股份金叉 + 三特索道金叉
+- **11:35 (03:06 UTC)**: HEARTBEAT_OK (无新信号)
+- **13:05 (05:06 UTC)**: 7只金叉 - 森特股份、济川药业、中顺洁柔、岭南控股、德赛西威、三特索道、上海莱士 + 20+只15分钟死叉
+
+### 开盘量比监控 (09:35)
+- **15只**量比>=2：汇川技术(5.70)、澳华内镜(4.52)、千源医药(4.43)、海思科(4.18)、三特索道(3.84)等
+
+### 价格提醒监控
+- 无触发信号
+- 中顺洁柔(002511) 持续数据获取失败 (Sina API HTTP 456 + 网络错误)
+  - 价格正常 ¥8.71，均线数据失败
+  - 已多次通知海哥
+
+### 新闻监控 (04:00 UTC)
+- 16条新内容，重点：
+  - 美国或将AI芯片出口管制扩展至全球
+  - 最高法副院长：加快制定证券市场内幕交易司法解释
+  - 分析师看好可控核聚变产业趋势投资
+
+## 海哥对话记录
+
+### 查询：OpenClaw与dance视频制作相关技能
+**发现的主要技能：**
+1. **ClawVid** (github.com/neur0map/clawvid) - AI短视频生成，支持TikTok/YouTube，Kling 2.6 Pro
+2. **Kling Skill** - 生成AI视频(via Kie.ai)
+3. **Seedance Video Generation** - 字节Seedance模型
+4. **Digital-Clawatar-** - UNITH数字人头像
+
+**结论：** 目前没有专门的舞蹈动作迁移Skill，可用Kling motion control实现
+
+### 查询：OpenClaw长期记忆与技能进化
+**发现的方案：**
+
+**记忆方案：**
+- **MEMORY.md** (当前使用) - 本地Markdown，手动维护
+- **Supermemory** - 云端，需付费Pro，自动语义搜索
+- **persistent-memory** - 三层本地：Markdown + ChromaDB + NetworkX
+- **chromadb-memory** - 本地ChromaDB + Ollama，完全自托管免费
+
+**进化方案：**
+- **capability-evolver** (autogame-17) - 元技能，分析运行时历史、自主修复、GEP协议约束进化
+- **agent-evolver** - 从经验学习、检测问题
+- **self-improving-agent** - 记录学习与修正，持续改进
+
+**OpenClaw-RL** (Gen-Verse) - 通过对话个性化，强化学习
+
+**当前已安装：**
+- ✅ proactive-agent
+- ✅ moltron-skill-creator
+
+**待安装：**
+- ❌ capability-evolver
+- ❌ self-improving-agent
+- ❌ chromadb-memory 或 supermemory
+
+## 系统状态 (05:07 UTC)
+- A股监控：🟢 运行中，下次06:35 UTC (14:35北京)
+- Moltbook：🟢 等待09:00 UTC
+- 新闻：🟢 已完成今日一轮
+- GitHub备份：✅ 02:00 UTC完成
+- 中顺洁柔数据失败：持续中，已通知用户
+
+## 下午监控摘要
+
+### A股MACD监控 (下午)
+- **13:05 (05:06 UTC)**: 7只金叉 - 森特股份、济川药业、中顺洁柔、岭南控股、德赛西威、三特索道、上海莱士 + 20+只15分钟死叉
+- **13:35 (05:36 UTC)**: 1新信号 - 三钢闽光(002110) 30分钟金叉 @ ¥4.46
+- **14:05 (06:06 UTC)**: 2新死叉 - 电科网安(15分钟) + 千源医药(30分钟)；3只数据失败(中触媒、上证50ETF、能源化工ETF)
+- **14:35 (06:36 UTC)**: 5新信号 - 金叉3(山煤国际、澳华内镜、能源化工ETF) + 死叉2(中贝通信、中科南讯)
+
+### 超级资金监控
+- 华熙生物(688363)：连续3天净流出，暂无拐头信号
+
+## 今日重要事件
+
+### capability-evolver 安装 (06:44 UTC)
+- clawhub限速，改从GitHub直接克隆
+- 来源: github.com/openclaw/skills/tree/main/skills/autogame-17/capability-evolver
+- 位置: /root/.openclaw/workspace/skills/capability-evolver/
+- npm install成功，已git commit
+- MEMORY.md已更新记录
+
+### 中顺洁柔(002511) 价格分析 (14:49北京)
+- 海哥询问是否能站上5日均线
+- 当前价: ¥8.80，昨日5日线: ¥8.82
+- 预估今日5日线: ¥8.77
+- 当前价已高于预估5日线，基本确认站上
+
+### 海哥对话记录
+- 询问dance视频制作相关OpenClaw技能
+- 询问长期记忆方案对比 (MEMORY.md vs Supermemory)
+- 建议: MEMORY.md已够用，Supermemory数据存云端有安全风险
+- 询问capability-evolver vs agent-evolver → 建议安装前者
+- 执行安装命令，已完成
+
+## 参考资源
+- awesome-openclaw-skills: github.com/VoltAgent/awesome-openclaw-skills (5400+技能)
+- openclaw/skills: github.com/openclaw/skills
+- capability-evolver SKILL.md: github.com/openclaw/skills/blob/main/skills/autogame-17/capability-evolver/SKILL.md
+- OpenClaw Memory文档: docs.openclaw.ai/concepts/memory
+- Supermemory插件: github.com/supermemoryai/openclaw-supermemory
+
+```
+
+Recent session transcript:
+```
+--- SESSION (0ac7255b-1872-4ac6-8023-8bab8bf6f093.jsonl) ---
+**ASSISTANT**: 东方财富API连接失败，试试新浪的K线数据。 [TOOL: exec]
+**TOOLRESULT**: [{"day":"2026-02-12","open":"8.550","high":"8.600","low":"8.470","close":"8.480","volume":"21597686","ma_price5":8.39,"ma_volume5":22690140},{"day":"2026-02-13","open":"8.480","high":"8.520","low":"8.250","close":"8.270","volume":"17633470","ma_price5":8.416,"ma_volume5":22268502},{"day":"2026-02-24
+**ASSISTANT**: 拿到数据了！现在可以告诉海哥： 当前情况（14:49北京时间）： - **当前价格**: ¥8.80 - **昨日收盘(03-05)**: ¥8.62 - **昨日5日均线**: ¥8.82 今日收盘后5日均线预估（用最近4天 + 今日）： - 03-02: 8.89, 03-03: 8.78, 03-04: 8.74, 03-05: 8.62, **今日: ~8.80** - 预估5日均线 ≈ (8.89+8.78+8.74+8.62+8.80)/5 = **¥8.77** 当前价格¥8.80已经**高于**预估5日均线¥8.77，基本已站上！ 海哥，根据当前数据： 中顺洁柔当前价 **¥8
+**ASSISTANT**: [LLM ERROR] {"error":"stream_timeout"}
+**ASSISTANT**: 
+**USER**: [Telegram ahai (@ahaius) id:7584677982 Fri 2026-03-06 06:48 UTC] /model/deepseek/deepseek-reasoner [message_id: 3634]
+**ASSISTANT**: [TOOL: read]
+**TOOLRESULT**: # 2026-03-06 日志 ## 上午监控摘要 ### A股MACD监控 (周五) - **09:35 (01:36 UTC)**: 48个信号 - 30分钟金叉20 + 死叉28，含今日9:45新触发4只 - **10:05 (02:06 UTC)**: 9个新信号 - 金叉3 + 死叉6 - **10:35 (02:36 UTC)**: 2个新信号 - 济川药业金叉 + 德赛西威金叉 - **11:05 (03:06 UTC)**: 2个新信号 - 森特股份金叉 + 三特索道金叉 - **11:35 (03:06 UTC)**: HEARTBEAT_OK (无新信号) [67 more
+**ASSISTANT**: [TOOL: edit]
+**TOOLRESULT**: Successfully replaced text in /root/.openclaw/workspace/memory/2026-03-06.md.
+**ASSISTANT**: [TOOL: write]
+**TOOLRESULT**: Successfully wrote 626 bytes to /root/.openclaw/workspace/NOW.md
+**USER**: [Telegram ahai (@ahaius) id:7584677982 Fri 2026-03-06 06:49 UTC] 更新记录，同时使用人工审核模式 [message_id: 3636]
+**ASSISTANT**: 海哥想用人工审核模式运行capability-evolver。让我先更新记录，然后运行。 [TOOL: exec]
+**TOOLRESULT**: [Review] No pending evolution run to review. Run "node index.js run" first to produce changes, then review before solidifying.
+**ASSISTANT**: 需要先运行一次进化分析，再进入审核模式。 [TOOL: exec]
+
+--- SESSION (a68cf229-71d0-4ef9-9a34-a79040777de6.jsonl) ---
+**USER**: [cron:af4732c5-277b-4a32-9bc4-b828e7305905 价格提醒监控] 运行价格提醒脚本 python3 /root/.openclaw/workspace/scripts/price_alert_monitor.py，如果有信号触发，通过 Telegram 通知海哥。如果没有信号，不需要通知。 Current time: Friday, March 6th, 2026 — 6:36 AM (UTC) Return your summary as plain text; it will be delivered automatically. If the task
+**ASSISTANT**:  [TOOL: exec]
+**TOOLRESULT**: ======================================== 价格提醒监控 - 2026-03-06 06:36:20 ======================================== ⚠️  检测到 1 个数据获取失败: ⚠️ 中顺洁柔(002511) 均线获取失败: 获取均线失败: Sina API返回HTTP 456，价格正常(¥8.79) 无触发信号 ⚠️  数据获取异常 - 详细错误: {   "status": "ok",   "signals": [],   "failures": [     {       "name": "中顺洁柔",  
+
+--- SESSION (4ac38bb7-69d5-4bf6-b76e-b8f40c0bfc87.jsonl) ---
+**ASSISTANT**:  [TOOL: process]
+**TOOLRESULT**: [45/51] 澳华内镜(688212)... ✅ 30分钟🔴 金叉 [46/51] 华熙生物(688363)... ✅ 无信号 [47/51] 奥泰生物(688606)... ✅ 无信号 [48/51] 中触媒(688267)... ✅ 无信号 Process still running.
+**ASSISTANT**:  [TOOL: process]
+**TOOLRESULT**:  金叉 [28/51] 海思科(002653)... ✅ 无信号 [29/51] 金奥博(00291
+...[TRUNCATED_EXECUTION_CONTEXT]...
+
+━━━━━━━━━━━━━━━━━━━━━━
+MANDATORY POST-SOLIDIFY STEP (Wrapper Authority -- Cannot Be Skipped)
+━━━━━━━━━━━━━━━━━━━━━━
+
+After solidify, a status summary file MUST exist for this cycle.
+Preferred path: evolver core auto-writes it during solidify.
+The wrapper will handle reporting AFTER git push.
+If core write is unavailable for any reason, create fallback status JSON manually.
+
+Write a JSON file with your status:
+```bash
+cat > ./logs/status_undefined.json << 'STATUSEOF'
+{
+  "result": "success|failed",
+  "en": "Status: [INTENT] <describe what you did in 1-2 sentences, in English>",
+  "zh": "状态: [意图] <用中文描述你做了什么，1-2句>"
+}
+STATUSEOF
+```
+
+Rules:
+- "en" field: English status. "zh" field: Chinese status. Content must match (different language).
+- Add "result" with value success or failed.
+- INTENT must be one of: INNOVATION, REPAIR, OPTIMIZE (or Chinese: 创新, 修复, 优化)
+- Do NOT use generic text like "Step Complete", "Cycle finished", "周期已完成". Describe the actual work.
+- Example:
+  {"result":"success","en":"Status: [INNOVATION] Created auto-scheduler that syncs calendar to HEARTBEAT.md","zh":"状态: [创新] 创建了自动调度器，将日历同步到 HEARTBEAT.md"}

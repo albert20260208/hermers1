@@ -1,0 +1,327 @@
+# DeerFlow整合项目配置
+
+# 项目信息
+project:
+  name: "deerflow-integration"
+  version: "1.0.0"
+  description: "多模型AI工作流自动化平台 - 贾维斯控制层"
+  author: "贾维斯 (Jarvis)"
+  start_date: "2026-03-25"
+
+# 模型配置
+models:
+  deepseek:
+    enabled: true
+    api_key_env: "DEEPSEEK_API_KEY"
+    default_model: "deepseek-chat"
+    max_tokens: 8192
+    temperature: 0.7
+    use_cases:
+      - "日常对话"
+      - "技术咨询"
+      - "代码编写"
+      - "文本优化"
+
+  opus:
+    enabled: true
+    api_key_env: "OPENAI_API_KEY"  # 注意：实际需要ANTHROPIC_API_KEY
+    default_model: "claude-3-5-sonnet-20241022"
+    max_tokens: 8192
+    temperature: 0.7
+    use_cases:
+      - "深度分析"
+      - "复杂推理"
+      - "战略规划"
+      - "逻辑分析"
+
+  minimax:
+    enabled: true
+    api_key_env: "MINIMAX_API_KEY"
+    default_model: "MiniMax-M2.5"
+    base_url: "https://api.minimax.io/v1"
+    max_tokens: 4096
+    temperature: 0.8
+    use_cases:
+      - "中文创作"
+      - "对话生成"
+      - "内容创作"
+      - "文案写作"
+
+  seedance:
+    enabled: true
+    api_key_env: "VOLCENGINE_API_KEY"
+    api_key: "d380aed6-916e-4542-bd67-a20bbd1b377c"  # 实际API密钥
+    api_base: "https://ark.cn-beijing.volces.com/api/v3"
+    default_model: "doubao-seedance-1-5-pro-251215"
+    use_cases:
+      - "视频生成"
+      - "图像生成"
+      - "视觉内容创作"
+
+# 任务类型配置
+task_types:
+  video_generation:
+    name: "视频生成"
+    description: "生成视频内容"
+    workflow: "scene_analysis -> scene_design -> prompt_generation -> video_generation"
+    default_model: "seedance"
+    priority: 1
+
+  dialog_generation:
+    name: "对话生成"
+    description: "生成角色对话"
+    workflow: "emotion_analysis -> style_setting -> dialog_generation -> dialog_optimization"
+    default_model: "minimax"
+    priority: 2
+
+  prompt_generation:
+    name: "提示词生成"
+    description: "生成AI视频提示词"
+    workflow: "scene_understanding -> shot_design -> prompt_generation"
+    default_model: "minimax"
+    priority: 3
+
+  text_analysis:
+    name: "文本分析"
+    description: "深度文本分析"
+    workflow: "single_task"
+    default_model: "opus"
+    priority: 4
+
+# 工作流配置
+workflows:
+ 偏爱难藏视频生成:
+    name: "《偏爱难藏》视频生成工作流"
+    description: "为《偏爱难藏》硅谷AI版生成视频内容"
+    steps:
+      - step: 1
+        name: "剧本分析"
+        agent: "text_analyzer"
+        model: "opus"
+        description: "分析剧本场景和角色关系"
+        timeout: 300
+
+      - step: 2
+        name: "分镜设计"
+        agent: "chinese_creator"
+        model: "minimax"
+        description: "设计分镜和镜头语言"
+        timeout: 300
+
+      - step: 3
+        name: "提示词生成"
+        agent: "chinese_creator"
+        model: "minimax"
+        description: "生成视频生成提示词"
+        timeout: 300
+
+      - step: 4
+        name: "视频生成"
+        agent: "video_generator"
+        model: "seedance"
+        description: "调用Seedance API生成视频"
+        timeout: 600  # 视频生成需要更长时间
+
+      - step: 5
+        name: "质量检查"
+        agent: "text_analyzer"
+        model: "opus"
+        description: "检查视频质量和一致性"
+        timeout: 300
+
+# 子代理配置
+subagents:
+  text_analyzer:
+    name: "文本分析器"
+    description: "专门负责文本分析和处理的子代理"
+    default_model: "opus"
+    capabilities:
+      - "文本理解"
+      - "逻辑分析"
+      - "情感分析"
+      - "结构分析"
+
+  chinese_creator:
+    name: "中文创作器"
+    description: "专门负责中文内容创作的子代理"
+    default_model: "minimax"
+    capabilities:
+      - "中文对话生成"
+      - "场景描述"
+      - "文案创作"
+      - "风格模仿"
+
+  video_generator:
+    name: "视频生成器"
+    description: "专门负责视频生成任务的子代理"
+    default_model: "seedance"
+    capabilities:
+      - "视频提示词生成"
+      - "视频参数配置"
+      - "视频质量评估"
+      - "风格一致性维护"
+
+# 性能配置
+performance:
+  max_concurrent_tasks: 5
+  task_timeout_seconds: 1800  # 30分钟
+  subtask_timeout_seconds: 300  # 5分钟
+  retry_attempts: 3
+  retry_delay_seconds: 10
+
+# 监控配置
+monitoring:
+  enabled: true
+  metrics:
+    - "task_completion_time"
+    - "subtask_success_rate"
+    - "model_api_latency"
+    - "error_rate"
+  logging:
+    level: "INFO"
+    file: "./logs/deerflow.log"
+    max_size_mb: 100
+    backup_count: 5
+
+# 存储配置
+storage:
+  task_history:
+    enabled: true
+    max_days: 30
+    path: "./data/task_history"
+  
+  result_cache:
+    enabled: true
+    max_size_mb: 1024
+    path: "./data/cache"
+  
+  model_outputs:
+    enabled: true
+    path: "./data/outputs"
+    organized_by: "task_type"  # task_type, date, project
+
+# 安全配置
+security:
+  api_keys:
+    storage: "env"  # env, file, vault
+    rotation_days: 90
+    encryption: true
+  
+  data_privacy:
+    anonymize_inputs: false
+    log_redaction: true
+    retention_days: 7
+
+# 部署配置
+deployment:
+  mode: "development"  # development, staging, production
+  host: "localhost"
+  port: 8000
+  workers: 2
+  reload: true
+  
+  docker:
+    enabled: false
+    compose_file: "./docker/docker-compose.yaml"
+    network: "deerflow-network"
+
+# 项目目录结构
+directories:
+  src: "./src"
+  config: "./config"
+  tests: "./tests"
+  workflows: "./workflows"
+  docs: "./docs"
+  logs: "./logs"
+  data: "./data"
+  scripts: "./scripts"
+
+# 测试配置
+testing:
+  unit_tests:
+    enabled: true
+    path: "./tests/unit"
+  
+  integration_tests:
+    enabled: true
+    path: "./tests/integration"
+  
+  e2e_tests:
+    enabled: true
+    path: "./tests/e2e"
+  
+  mock_apis:
+    enabled: true
+    deepseek: true
+    opus: true
+    minimax: true
+    seedance: true
+
+# 文档配置
+documentation:
+  api_docs:
+    enabled: true
+    format: "openapi"
+    output: "./docs/api/openapi.yaml"
+  
+  architecture:
+    enabled: true
+    diagrams:
+      - "system_architecture"
+      - "data_flow"
+      - "deployment_diagram"
+    output: "./docs/architecture"
+  
+  user_guide:
+    enabled: true
+    languages:
+      - "zh-CN"
+    output: "./docs/user_guide"
+
+# 版本控制
+version_control:
+  git:
+    enabled: true
+    branch: "main"
+    auto_commit: true
+    commit_message_template: "feat: {task_type} - {description}"
+  
+  backup:
+    enabled: true
+    frequency: "daily"
+    retention: 7
+    path: "./backups"
+
+# 通知配置
+notifications:
+  enabled: true
+  channels:
+    - type: "log"
+      level: "INFO"
+    
+    - type: "file"
+      path: "./logs/notifications.log"
+    
+    - type: "console"
+      level: "INFO"
+  
+  # 未来可以添加：email, slack, telegram等
+
+# 维护配置
+maintenance:
+  cleanup:
+    enabled: true
+    schedule: "0 2 * * *"  # 每天凌晨2点
+    tasks:
+      - "clean_old_logs"
+      - "clean_cache"
+      - "backup_database"
+  
+  health_check:
+    enabled: true
+    interval_seconds: 300  # 5分钟
+    checks:
+      - "api_connectivity"
+      - "disk_space"
+      - "memory_usage"
+      - "task_queue"

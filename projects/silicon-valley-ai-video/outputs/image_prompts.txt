@@ -1,0 +1,8 @@
+=== Killian Portrait ===
+Professional portrait of Killian Blackwood, - **年龄**：28岁，斯坦福大学人工智能博士，Blackwood家族嫡系继承人 - **前期身份（1-15集）**：低调硅谷AI创业者，纯技术极客，整日泡在实验室、穿休闲装，对外不参与家族应酬，沉迷自研**新一代通用AI大模型（BlackAI）**，无心商业权斗；家族认为他心性不定、只懂技术，按家规**雪藏实权**，不拨付家族资金、不公开继承人身份，在外只是普通技术男，无豪门排场、无实权地位；秉持技术至上、工具理性，忽视AI伦理与人文情感。 - **转折点**：BlackAI研发进入收尾阶段，商业估值破百亿美金，家族看到其颠覆性价值，重启继承人计划，但**家规铁律不变：完成商业联姻、正式订婚，方可解锁全部家族权力、接管集团、支配AI项目全部资金与版权**；订婚联姻后，在女主影响下，逐渐重视AI伦理，平衡技术与人性。 - **后期身份（16集后）**：订婚当日，正式掌权Blackwood集团+全资控股AI公司，从低调技术宅变身硅谷+华尔街双料新贵，行事沉稳果决，外冷内热，对别人只谈技术与商业，唯独对女主藏满细节偏爱，用AI技术默默守护女主，同时坚守科技伦理，做负责任的技术开发者。, 28-year-old Silicon Valley AI entrepreneur, wearing black suit, in modern tech office, cinematic lighting, photorealistic, detailed facial features, confident expression, shallow depth of field, 8k resolution
+
+=== Elara Portrait ===
+Professional portrait of Elara Voss, - **年龄**：22岁，纽约大学传媒/艺术策展专业在读，沃斯家族小女儿 - **背景**：自幼被父母送往乡下祖父母家寄养，家族重长姐轻幼女，父母一心攀附豪门，对她冷漠忽视，从未给予关爱；敏感自卑、温柔坚韧，喜欢文字、艺术与人文内容，对AI技术一窍不通，却能读懂男主技术外壳下的孤独，代表人文感性与价值理性，是男主的伦理引导者。 - **动机**：被迫替嫁后，只想低调完成契约、顺利脱身，靠自己在职场站稳脚跟，隐婚入职硅谷科技公司旗下传媒子公司/艺术策展机构，不想依附男主；后期帮助男主平衡科技与人文，实现自我成长。, 22-year-old art student, wearing elegant white dress, as professional journalist, holding microphone, gentle expression, artistic气质, cinematic lighting, photorealistic, detailed features, soft focus background, 8k resolution
+
+=== Interview Scene ===
+Modern Silicon Valley tech office interview scene, - **年龄**：28岁，斯坦福大学人工智能博士，Blackwood家族嫡系继承人 - **前期身份 and - **年龄**：22岁，纽约大学传媒/艺术策展专业在读，沃斯家族小女儿 - **背景**：自幼被父 in professional interview setting, cinematic composition, clean modern interior design, large windows with city view, professional lighting, photorealistic, detailed environment, wide shot, 8k resolution

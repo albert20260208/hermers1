@@ -1,0 +1,20 @@
+INFO:     Started server process [731392]
+INFO:     Waiting for application startup.
+2026-04-13 12:35:55 - app.gateway.app - INFO - Configuration loaded successfully
+2026-04-13 12:35:55 - app.gateway.app - INFO - Starting API Gateway on 0.0.0.0:8001
+2026-04-13 12:35:55 - app.channels.manager - INFO - ChannelManager started (max_concurrency=5)
+2026-04-13 12:35:55 - app.channels.service - INFO - ChannelService started with channels: []
+2026-04-13 12:35:55 - app.gateway.app - INFO - Channel service started: {'service_running': True, 'channels': {'feishu': {'enabled': False, 'running': False}, 'slack': {'enabled': False, 'running': False}, 'telegram': {'enabled': False, 'running': False}}}
+2026-04-13 12:35:55 - app.channels.manager - INFO - [Manager] dispatch loop started, waiting for inbound messages
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+INFO:     ::1:0 - "GET /api/models HTTP/1.1" 200 OK
+INFO:     ::1:0 - "GET /api/skills HTTP/1.1" 200 OK
+INFO:     ::1:0 - "GET /health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-04-13 13:48:44 - app.channels.manager - INFO - ChannelManager stopped
+2026-04-13 13:48:44 - app.channels.service - INFO - ChannelService stopped
+2026-04-13 13:48:44 - app.gateway.app - INFO - Shutting down API Gateway
+INFO:     Application shutdown complete.
+INFO:     Finished server process [731392]

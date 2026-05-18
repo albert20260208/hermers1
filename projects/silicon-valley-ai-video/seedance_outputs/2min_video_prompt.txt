@@ -1,0 +1,35 @@
+# 2分钟短视频脚本：《偏爱难藏》硅谷AI版 - 职场采访未婚夫
+场景: 硅谷科技公司现代办公室采访场景，BlackAI创始人Killian Blackwood接受记者Elara Voss的独家专访。
+
+## 时间分段描述:
+0-15秒: 开场，Killian坐在现代会议室中，神情专注等待采访开始。镜头缓慢推近，展现硅谷科技办公室环境。
+15-30秒: Elara进入会议室，专业地准备采访设备。两人礼貌寒暄，气氛正式但微妙。
+30-45秒: 采访开始，Elara提问关于AI伦理的问题。Killian认真回答，眼神中透露出对技术的热情。
+45-60秒: 随着对话深入，Killian的目光变得柔和，注意到Elara对技术的真诚好奇。
+60-75秒: Elara记录回答时微微点头，展现出专业素养。两人之间产生微妙的默契感。
+75-90秒: 采访间隙，Killian用简单语言解释复杂概念，Elara认真倾听并理解。
+90-105秒: 两人就科技与艺术的融合进行讨论，气氛变得轻松温暖。
+105-120秒: 采访结束，Killian起身送别Elara，两人目光交汇，留下未言明的情感张力。
+
+## 视觉参考 (@引用):
+主角Killian参考: @/root/.openclaw/workspace/projects/silicon-valley-ai-video/seedance_outputs/killian_portrait.png
+主角Elara参考: @/root/.openclaw/workspace/projects/silicon-valley-ai-video/seedance_outputs/elara_portrait.png
+场景参考: @/root/.openclaw/workspace/projects/silicon-valley-ai-video/seedance_outputs/interview_scene.png
+
+## 视觉风格:
+- 电影质感: Cinematic quality, 35mm film grain, shallow depth of field
+- 画面比例: 16:9 宽屏, 24fps
+- 色调: 现代科技冷色调为主，情感时刻加入暖光
+- 镜头语言: 专业电影镜头，情感导向的运动
+
+## 音频设计:
+- 背景音乐: 轻柔钢琴曲 + 科技电子音效
+- 环境音: 办公室背景音、键盘声、空调声
+- 对话: 专业采访录音质量
+
+## 特别要求:
+- 使用Seedance 2.0 Fast模式生成
+- 总时长: 120秒 (2分钟)
+- 分辨率: 1280x720 (16:9)
+- 保持人物形象一致性
+- 情感表达细腻自然

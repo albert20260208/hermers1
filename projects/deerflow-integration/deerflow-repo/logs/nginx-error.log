@@ -1,0 +1,3 @@
+2026/03/25 08:03:22 [error] 199981#199981: *1 connect() failed (111: Connection refused) while connecting to upstream, client: ::1, server: _, request: "GET /api/health HTTP/1.1", upstream: "http://127.0.0.1:3000/api/health", host: "localhost:2026"
+2026/03/25 08:05:55 [error] 199981#199981: *3 connect() failed (111: Connection refused) while connecting to upstream, client: ::1, server: _, request: "POST /api/research HTTP/1.1", upstream: "http://127.0.0.1:3000/api/research", host: "localhost:2026"
+2026/03/25 14:14:52 [error] 199981#199981: *5 connect() failed (111: Connection refused) while connecting to upstream, client: ::1, server: _, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:3000/", host: "localhost:2026"

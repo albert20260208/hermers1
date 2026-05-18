@@ -1,0 +1,13 @@
+
+> deer-flow-frontend@0.1.0 dev /root/.openclaw/workspace/projects/deerflow-integration/deerflow-repo/frontend
+> next dev --turbo
+
+▲ Next.js 16.1.7 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.10.10.213:3000
+- Environments: .env
+
+✓ Starting...
+✓ Ready in 2.6s
+ ELIFECYCLE  Command failed.
+[?25h
