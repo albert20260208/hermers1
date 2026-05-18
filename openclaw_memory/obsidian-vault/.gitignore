@@ -1,0 +1,58 @@
+# Obsidian 缓存和临时文件
+.obsidian/workspace.json
+.obsidian/.trash/
+.search.json
+.graph.json
+*.lock
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 临时文件
+*.tmp
+*.temp
+*.log
+*.cache
+
+# 附件缓存（如果有的话）
+Attachments/.cache/
+
+# 开发文件
+.dev/
+.vscode/
+.idea/
+
+# ========================================
+# 🔒 安全：敏感信息保护（2026-04-04添加）
+# ========================================
+
+# Git凭证文件（包含GitHub Token）
+.git-credentials
+*credentials*
+
+# 敏感配置文件（包含API密钥）
+**/TOOLS.md
+**/secrets.md
+**/credentials.md
+**/.env
+**/.env.*
+**/config.private.*
+
+# 个人隐私文件
+**/IDENTITY.md
+**/USER.md
+
+# API密钥和Token
+*api_key*
+*token*
+*secret*
+*.pem
+*.key
+*.cert
+
+# 备份文件可能包含敏感信息
+*.backup
+*.bak
+*~

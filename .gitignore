@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+venv/
+.venv/
+env/
+env.bak/
+*.egg-info/
+dist/
+build/
+
+# Node
+node_modules/
+.npm/
+*.log
+
+# Git
+.git/
+.gitmodules/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large data
+*.sqlite
+*.db
+*.db-shm
+*.db-wal
+
+# Cache
+.cache/
+*.egg-info/
+.pytest_cache/

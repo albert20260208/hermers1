@@ -1,0 +1,157 @@
+# 《偏爱难藏》硅谷AI版 - Video技能项目记录
+## Hidden Preference: Silicon Valley AI Version - Video Skill Project
+
+### 项目概述
+这是《偏爱难藏》硅谷AI版在Video技能下的项目记录，用于管理视频生成相关的创作工作。
+
+**项目类型**: 浪漫喜剧短剧（80集）
+**技术融合**: AI伦理哲学 + 硅谷科技 + WASP家族规则
+**核心主题**: 技术理性 vs 人文感性，AI算法宿命论 vs 人类自由意志
+
+### 项目链接
+- **主项目文件夹**: `/root/.openclaw/workspace/projects/hidden-preference-overseas/silicon-valley-ai-version/`
+- **核心大纲文件**: `/root/.openclaw/workspace/projects/hidden-preference-overseas/scripts/硅谷AI版-完整人设+80集剧情大纲.md`
+
+### 视频生成相关目录结构
+```
+偏爱难藏-硅谷AI版/
+├── README.md                              # 本项目说明文件
+├── prompts/                               # 提示词库
+│   ├── character-prompts/                # 角色提示词
+│   │   ├── killian-blackwood-prompts.md  # 男主Killian提示词
+│   │   ├── elara-voss-prompts.md         # 女主Elara提示词
+│   │   └── seraphina-voss-prompts.md     # 姐姐Seraphina提示词
+│   ├── scene-prompts/                    # 场景提示词
+│   │   ├── silicon-valley-lab-prompts.md # 硅谷实验室场景
+│   │   ├── blackwood-mansion-prompts.md  # Blackwood庄园场景
+│   │   ├── art-gallery-prompts.md        # 艺术画廊场景
+│   │   └── global-conference-prompts.md  # 全球发布会场景
+│   ├── key-scene-prompts/                # 关键场景提示词
+│   │   ├── 订婚宴算法反转-prompts.md
+│   │   ├── 职场采访名场面-prompts.md
+│   │   ├── 数据投毒危机-prompts.md
+│   │   ├── 艺术安全装置解围-prompts.md
+│   │   └── 全球发布会告白-prompts.md
+│   └── style-prompts/                    # 风格提示词
+│       ├── tech-aesthetic-prompts.md     # 科技美学风格
+│       ├── art-tech-fusion-prompts.md    # 艺术技术融合风格
+│       ├── wasp-luxury-prompts.md        # WASP奢华风格
+│       └── ai-ethics-visual-prompts.md   # AI伦理可视化风格
+├── references/                           # 参考材料
+│   ├── character-references/             # 角色参考图
+│   ├── location-references/              # 场景参考图
+│   ├── style-references/                 # 风格参考图
+│   ├── ai-art-references/                # AI艺术参考
+│   ├── tech-visual-references/           # 科技可视化参考
+│   └── DEERFLOW竞品分析报告-20260325.md  # DEERFLOW深度竞品分析报告
+├── generated-content/                    # 生成内容
+│   ├── character-tests/                  # 角色测试生成
+│   ├── scene-tests/                      # 场景测试生成
+│   ├── key-scene-generations/            # 关键场景生成
+│   └── style-experiments/                # 风格实验
+├── consistency-checks/                   # 一致性检查
+│   ├── character-consistency.md          # 角色一致性记录
+│   ├── scene-consistency.md              # 场景一致性记录
+│   ├── style-consistency.md              # 风格一致性记录
+│   └── timeline-consistency.md           # 时间线一致性记录
+└── production-notes/                     # 制作笔记
+    ├── prompt-optimization-notes.md      # 提示词优化笔记
+    ├── generation-parameters.md          # 生成参数记录
+    ├── quality-assessment.md             # 质量评估记录
+    ├── iteration-history.md              # 迭代历史记录
+    └── 前5集深度修改策略-20260325.md     # 基于DEERFLOW分析的前5集修改策略
+```
+
+### 核心提示词生成原则
+
+#### 1. **角色一致性原则**
+- **Killian Blackwood**: 技术极客气质，斯坦福AI博士，28岁，穿休闲装/正装切换
+- **Elara Voss**: 艺术气质，22岁，纽约大学艺术策展专业，温柔坚韧
+- **Seraphina Voss**: 精致利己，24岁，极致势利虚荣
+
+#### 2. **场景一致性原则**
+- **硅谷实验室**: 科技感，简洁，数据可视化屏幕，AI设备
+- **Blackwood庄园**: WASP家族奢华，古典与现代结合
+- **艺术画廊**: 简约现代，艺术装置，光影效果
+- **全球发布会**: 科技盛会，LED大屏，国际观众
+
+#### 3. **风格一致性原则**
+- **科技美学**: 冷色调，简洁线条，数据可视化元素
+- **艺术技术融合**: 温暖色调，柔和光影，艺术与科技结合
+- **WASP奢华**: 暖色调，古典装饰，奢华细节
+- **AI伦理可视化**: 抽象艺术，光影对比，情感表达
+
+### 关键场景视频生成计划
+
+#### 第一阶段：角色与场景测试
+1. **Killian角色测试**: 硅谷实验室场景，技术极客造型
+2. **Elara角色测试**: 艺术画廊场景，艺术气质造型
+3. **Seraphina角色测试**: 奢华派对场景，精致利己造型
+4. **场景一致性测试**: 同一角色在不同场景中的一致性
+
+#### 第二阶段：关键场景生成
+1. **订婚宴算法反转** (第1集关键场景)
+2. **职场采访名场面** (第16-35集关键场景)
+3. **数据投毒危机** (第40集关键场景)
+4. **艺术安全装置解围** (第50集关键场景)
+5. **全球发布会告白** (第75集关键场景)
+
+#### 第三阶段：风格融合实验
+1. **科技美学风格实验**: 硅谷实验室场景的不同风格
+2. **艺术技术融合实验**: 艺术画廊的科技元素融入
+3. **WASP奢华风格实验**: Blackwood庄园的不同奢华程度
+4. **AI伦理可视化实验**: 抽象艺术表达AI伦理概念
+
+### 技术参数参考
+
+#### Seedance 2.0 参数建议
+- **模型**: Seedance 2.0 完整版
+- **分辨率**: 3840×2160 (4K)
+- **渲染质量**: 极致细节
+- **画质增强**: 勾选"画质链式增强"
+- **风格**: 超写实风格，电影级摄影
+
+#### 提示词结构模板
+```
+超写实风格，电影级摄影，不要字幕，不要背景音乐，[场景描述]，人物动态真实且自然，你是专业的[情感类型]导演，发挥你的想象力设计分镜和运镜；@参考图1是[角色1]，@参考图2是[角色2]，@参考图3是场景，镜头要特写近景和中景全景，过肩镜头和主观侧面镜头，单个镜头时长不低于3秒，[情感类型]节奏，根据角色情绪状态增加微表情和小动作细节；剧本：[核心动作按时间顺序描述]
+```
+
+### 项目状态
+- ✅ Video技能项目文件夹创建完成
+- ✅ 目录结构规划完成
+- ✅ **剧本分析文件已添加** (2026-03-25)
+  - ✅ `production-notes/前5集深度修改策略-20260325.md`
+  - ✅ `production-notes/硅谷AI版-完整人设+80集剧情大纲.md` ⭐ **新增**
+  - ✅ `production-notes/前15集剧情详细-20260325.docx` ⭐ **新增**
+  - ✅ `production-notes/DEERFLOW前5集修改意见-20260325.md` ⭐ **新增**
+  - ✅ `references/DEERFLOW竞品分析报告-20260325.md`
+- ⏳ 等待开始角色和场景测试
+- ⏳ 提示词库待创建
+- ⏳ 参考材料待收集
+- ⏳ 生成内容待开始
+
+### 下一步行动
+1. **创建角色提示词库**: 为Killian、Elara、Seraphina创建详细的提示词
+2. **收集参考材料**: 收集角色、场景、风格的参考图
+3. **开始角色测试**: 生成主要角色的测试视频
+4. **场景一致性测试**: 测试同一角色在不同场景中的一致性
+5. **关键场景生成**: 开始生成5个关键场景的视频
+
+### 协作规范
+- 所有提示词使用Markdown格式，包含详细参数
+- 生成内容按日期和版本编号保存
+- 一致性检查记录每次生成的调整
+- 制作笔记记录优化过程和经验
+
+---
+**创建时间**: 2026-03-24  
+**版本**: v1.4 新增DEERFLOW前5集修改意见文件  
+**最后更新**: 2026-03-25 16:46 UTC  
+**关联项目**: 《偏爱难藏》硅谷AI版主项目  
+**视频技能**: Seedance 2.0, 四面墙场景一致性方法  
+**新增文件**: 
+- `production-notes/前5集深度修改策略-20260325.md`
+- `production-notes/硅谷AI版-完整人设+80集剧情大纲.md` ⭐ **新增**
+- `production-notes/前15集剧情详细-20260325.docx` ⭐ **新增**
+- `production-notes/DEERFLOW前5集修改意见-20260325.md` ⭐ **新增**
+- `references/DEERFLOW竞品分析报告-20260325.md`
